@@ -50,6 +50,10 @@ jobs:
               except Exception as e:print('Asset missing:',absolute,e)
           for canonical in soup.select('link[rel=canonical]'):
               canonical['href']='https://anatoly-cherdakov.github.io/taya/'
+          for a in soup.select('a.bot-refresh'):
+              button=soup.new_tag('button',attrs={'class':'bot-refresh','type':'button'})
+              button.string='Обновить результаты'
+              a.replace_with(button)
           Path('index.html').write_text(str(soup),encoding='utf8')
           print('Downloaded',len(copied),'assets; HTML',len(str(soup)))
           PY
