@@ -1,65 +1,28 @@
-name: Mirror Taya parkrun website
+name: Update Taya results from run5k
 on:
   workflow_dispatch:
-concurrency:
-  group: mirror-taya
-  cancel-in-progress: false
 permissions:
   contents: write
+concurrency:
+  group: update-taya-results
+  cancel-in-progress: false
 jobs:
-  mirror:
+  update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Download the live page with its assets
+        with:
+          persist-credentials: true
+      - name: Install dependencies
+        run: python -m pip install requests beautifulsoup4
+      - name: Fetch run5k results and rebuild table
+        run: python scripts/refresh_run5k.py
+      - name: Commit verified changes
         run: |
-          python -m pip install requests beautifulsoup4
-          python - <<'PY'
-          from pathlib import Path
-          from urllib.parse import urljoin, urlparse
-          from bs4 import BeautifulSoup
-          import requests, re, hashlib
-          source = 'https://izmyrun.pages.dev/s/taya/parkrun/'
-          session=requests.Session()
-          session.headers['User-Agent']='Mozilla/5.0'
-          r=session.get(source,timeout=35)
-          r.raise_for_status()
-          soup=BeautifulSoup(r.text,'html.parser')
-          if 'Тая' not in soup.get_text(' ',strip=True) or not soup.select('table tbody tr'):
-              raise RuntimeError('Source page has no Taya results; preserving previous published version')
-          Path('assets').mkdir(exist_ok=True)
-          copied={}
-          for node,attr in [(x,'href') for x in soup.select('link[href]')]+[(x,'src') for x in soup.select('[src]')]:
-              url=node.get(attr)
-              if not url or url.startswith(('data:','blob:','#','javascript:','mailto:')):continue
-              absolute=urljoin(source,url)
-              parsed=urlparse(absolute)
-              if parsed.scheme not in ('http','https'):continue
-              if node.name=='link' and not any(v in (node.get('rel') or []) for v in ['stylesheet','icon']):continue
-              if absolute in copied:
-                  node[attr]=copied[absolute];continue
-              try:
-                  data=session.get(absolute,timeout=35);data.raise_for_status()
-                  if len(data.content)>15000000: continue
-                  ext=Path(parsed.path).suffix.lower()
-                  if not ext or len(ext)>9:ext='.bin'
-                  filename=hashlib.sha256(absolute.encode()).hexdigest()[:16]+ext
-                  Path('assets',filename).write_bytes(data.content)
-                  copied[absolute]='assets/'+filename
-                  node[attr]=copied[absolute]
-              except Exception as e:print('Asset missing:',absolute,e)
-          for canonical in soup.select('link[rel=canonical]'):
-              canonical['href']='https://anatoly-cherdakov.github.io/taya/'
-          for a in soup.select('a.bot-refresh'):
-              button=soup.new_tag('button',attrs={'class':'bot-refresh','type':'button'})
-              button.string='Обновить результаты'
-              a.replace_with(button)
-          Path('index.html').write_text(str(soup),encoding='utf8')
-          print('Downloaded',len(copied),'assets; HTML',len(str(soup)))
-          PY
-      - name: Publish snapshot to repository
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add index.html assets
-          git diff --cached --quiet || (git commit -m "Mirror original Taya parkrun website" && git push)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Update Taya results from run5k"
+            git push
+          fi
