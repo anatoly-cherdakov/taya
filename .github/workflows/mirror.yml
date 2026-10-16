@@ -1,9 +1,14 @@
 name: Mirror Taya parkrun website
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
   push:
     paths:
       - .github/workflows/mirror.yml
+concurrency:
+  group: mirror-taya
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
@@ -25,6 +30,8 @@ jobs:
           r=session.get(source,timeout=35)
           r.raise_for_status()
           soup=BeautifulSoup(r.text,'html.parser')
+          if 'Тая' not in soup.get_text(' ',strip=True) or not soup.select('table tbody tr'):
+              raise RuntimeError('Source page has no Taya results; preserving previous published version')
           Path('assets').mkdir(exist_ok=True)
           copied={}
           for node,attr in [(x,'href') for x in soup.select('link[href]')]+[(x,'src') for x in soup.select('[src]')]:
