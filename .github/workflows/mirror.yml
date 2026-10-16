@@ -1,11 +1,6 @@
 name: Mirror Taya parkrun website
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '17 */6 * * *'
-  push:
-    paths:
-      - .github/workflows/mirror.yml
 concurrency:
   group: mirror-taya
   cancel-in-progress: false
