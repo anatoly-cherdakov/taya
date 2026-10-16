@@ -1,0 +1,17 @@
+/* Shared navigation geometry on running, parkrun and interview pages. */
+.site-header{display:flex;align-items:center;flex-wrap:wrap;gap:18px;margin:0 0 14px;padding:0}
+.site-header .site-switch-wrap{display:contents}
+.site-header .site-current,.site-header .site-switch{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;min-height:49px;margin:0;padding:8px 14px;font:900 25px/1.15 Arial,sans-serif;letter-spacing:normal;white-space:nowrap;border-radius:12px;text-decoration:none}
+.site-header .site-current{border:2px solid #197340;background:#edf8f0;color:#111}
+.site-header .site-switch{gap:9px;border:1px solid rgba(20,35,50,.20);background:rgba(255,255,255,.72);box-shadow:0 2px 7px rgba(0,0,0,.10);color:#24313f}
+.site-header .site-switch span{font:inherit;transform:none;line-height:1.15}
+.site-header .site-switch:hover{background:#fff}
+.site-header .site-switch:focus-visible{outline:3px solid rgba(45,110,180,.45);outline-offset:2px}
+.interview-site-header{padding:10px 20px 0}
+.interview-site-header>.site-header{box-sizing:border-box;max-width:1180px;margin:0 auto;padding:28px 20px 14px}
+@media(max-width:700px){
+ .site-header{gap:7px 12px}
+ .site-header .site-current,.site-header .site-switch{min-height:43px;font-size:20px;padding:7px 9px}
+ .interview-site-header{padding:8px 8px 0}
+ .interview-site-header>.site-header{width:100%;max-width:none;padding:0 0 14px}
+}

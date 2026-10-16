@@ -1,0 +1,109 @@
+/* Layout, sizes, typography and responsive rules come from the two reference sites.
+   Only reusable images, generalised filters and new owner controls are defined here. */
+.picture{background-size:cover!important;background-position:center!important}
+.year-stat-filter{font:inherit;color:inherit;text-align:inherit;cursor:pointer}
+.year-stat-filter.is-active{box-shadow:0 0 0 2px #46694e inset}
+tr[hidden]{display:none!important}
+.bot-refresh{display:inline-block;border:1px solid var(--line,#d8ded5);border-radius:999px;padding:9px 16px;background:#19742c;text-decoration:none;color:#fff;font:inherit}
+.map-note,.bot-footnote{font-size:12px;color:#6d6d68}
+.bot-footnote{margin-top:28px}
+.year-picture:focus-visible,.year-stat-filter:focus-visible{outline:3px solid #46694e;outline-offset:3px}
+.bot-running .distance-pill.ten{background:#d8e9ff;color:#145ca8}
+.bot-running td:nth-child(4){white-space:nowrap}
+.bot-running .refresh-control{margin:12px 0}
+.year-pictures{grid-template-rows:none!important}
+.picture::before,.picture::after{content:none!important}
+
+/* One system icon; one row regardless of the number of systems. */
+body:is(.bot-parkrun,.bot-running) main > .sub + .grid,
+body:is(.bot-parkrun,.bot-running) .grid.year-stats{
+ display:flex!important;flex-wrap:nowrap!important;width:max-content!important;max-width:100%!important;
+ gap:8px!important;height:auto!important;overflow-x:auto;align-items:stretch;
+}
+body:is(.bot-parkrun,.bot-running) .grid > .card::before,body:is(.bot-parkrun,.bot-running) .grid > .card::after{content:none!important;display:none!important}
+body:is(.bot-parkrun,.bot-running) main .grid > .card{
+ display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:center!important;
+ flex:0 0 auto!important;width:auto!important;min-width:0!important;height:auto!important;min-height:60px!important;
+ padding:8px 10px!important;gap:7px!important;margin:0!important;
+}
+body:is(.bot-parkrun,.bot-running) main .grid > .card .stat-content{min-width:0!important;flex:0 1 auto!important}
+body:is(.bot-parkrun,.bot-running) main .grid > .card .stat-icon-new{font-size:28px!important;min-width:0!important;line-height:1!important}
+body:is(.bot-parkrun,.bot-running) main .grid > .card .num{font-size:24px!important;line-height:1.1!important}
+body:is(.bot-parkrun,.bot-running) main .grid > .card .muted{font-size:12px!important;white-space:nowrap!important}
+.bot-refresh{font-weight:700;box-shadow:0 2px 5px #145b2420;border-color:#19742c}
+.bot-refresh:hover{background:#125a20;color:white}
+.bot-refresh:focus-visible{outline:3px solid #75ad80;outline-offset:3px}
+.bot-running .distance-pill.half{background:#cdeecb;color:#176b2a}
+body main .geo-regions{display:grid!important;grid-template-columns:1fr!important;gap:16px!important;text-align:left!important}
+.geo-region{width:100%;min-width:0}
+.geo-region h3{margin:0 0 8px;font-size:16px;color:#263d2b}
+.geo-region h3 span{font-size:12px;font-weight:400;color:#68756b;margin-left:8px;white-space:nowrap}
+.geo-region ul{display:flex;flex-wrap:wrap;gap:6px 9px;list-style:none;margin:0;padding:0}
+.geo-region li{display:inline-flex;align-items:baseline;gap:7px;border:1px solid #e0e6df;border-radius:7px;padding:4px 8px;background:#fff;font-size:12px}
+.geo-region li b{color:#19742c;white-space:nowrap}
+@media(max-width:560px){
+ body:is(.bot-parkrun,.bot-running) main > .sub + .grid,body:is(.bot-parkrun,.bot-running) .grid.year-stats{width:100%!important;gap:4px!important}
+ body:is(.bot-parkrun,.bot-running) main .grid > .card{flex:1 1 0!important;flex-direction:row!important;padding:6px 3px!important;gap:4px!important;min-width:0!important;min-height:60px!important}
+ body:is(.bot-parkrun,.bot-running) main .grid > .card .stat-icon-new{font-size:18px!important;flex-shrink:0!important}
+ body:is(.bot-parkrun,.bot-running) main .grid > .card .stat-content{align-items:center!important;text-align:center!important}
+ body:is(.bot-parkrun,.bot-running) main .grid > .card .num{font-size:20px!important;text-align:center!important}
+ body:is(.bot-parkrun,.bot-running) main .grid > .card .muted{font-size:10px!important;line-height:1.2!important;text-align:center!important}
+ .geo-region li{font-size:11px}
+}
+
+.geo-region li{padding:0;border:0;background:transparent}
+.geo-location{display:inline-flex;align-items:baseline;gap:7px;padding:5px 8px;border:1px solid #d5dfd5;border-radius:7px;background:white;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.geo-location:hover,.geo-location[aria-pressed="true"]{background:#e2f0de;border-color:#19742c}
+.geo-location:focus-visible{outline:3px solid #75ad80;outline-offset:2px}
+.geo-location:disabled{cursor:default;opacity:.65}
+.race-marker-selected{display:block;width:20px;height:20px;border:3px solid white;border-radius:50%;background:#ef652c;box-shadow:0 0 0 3px #ef652c,0 2px 8px #0006}
+@media(max-width:360px){
+ body:is(.bot-parkrun,.bot-running) main > .sub + .grid,body:is(.bot-parkrun,.bot-running) .grid.year-stats{gap:3px!important}
+ body:is(.bot-parkrun,.bot-running) main .grid > .card{gap:2px!important;padding:6px 2px!important}
+ body:is(.bot-parkrun,.bot-running) main .grid > .card .stat-icon-new{font-size:14px!important}
+ body:is(.bot-parkrun,.bot-running) main .grid > .card .num{font-size:18px!important}
+ body:is(.bot-parkrun,.bot-running) main .grid > .card .muted{font-size:9px!important}
+}
+
+.five-verst-icon{display:inline-grid;place-items:center;width:1em;height:1em;background:#0786d1;color:white;border:1px solid #065b90;border-radius:2px;font:700 1em/1 Arial,sans-serif;box-sizing:border-box}
+
+/* Current page remains a heading, visibly selected beside the navigation link. */
+.site-header .site-current{border:2px solid #197340;border-radius:12px;padding:8px 14px;background:#edf8f0;box-sizing:border-box;}
+.race-popup{min-width:200px;max-width:280px;line-height:1.4;}
+.race-popup>div{margin:4px 0 8px;color:#52625a;}
+.race-popup-starts{list-style:none;margin:0!important;padding:0!important;max-height:220px;overflow-y:auto;overscroll-behavior:contain;}
+.race-popup-starts li{display:flex;gap:8px;padding:7px 0;border-top:1px solid #dce6df;}
+.race-popup-starts time{flex:none;font-variant-numeric:tabular-nums;}
+.race-popup-starts span{overflow-wrap:anywhere;}
+@media(max-width:480px){.site-header .site-current{padding:7px 9px;}}
+
+body.bot-running main .grid > .card .num,body.bot-running main .grid > .card .muted{margin:0!important;}
+body.bot-running main .grid > .card .stat-content{display:flex;flex-direction:column;align-items:center;gap:3px;}
+@media(max-width:560px){
+ body.bot-running main > .sub + .grid,body.bot-running .grid.year-stats{width:100%!important;max-width:100%!important;}
+ body.bot-running main .grid > .card{flex:1 1 0!important;padding:6px 3px!important;gap:4px!important;}
+}
+@media(max-width:560px){
+ body.bot-running .grid:has(>.card:nth-child(5))>.card{padding:6px 3px!important;gap:3px!important;}
+ body.bot-running .grid:has(>.card:nth-child(5))>.card .stat-icon-new{font-size:14px!important;}
+ body.bot-running .grid:has(>.card:nth-child(5))>.card .num{font-size:18px!important;}
+ body.bot-running .grid:has(>.card:nth-child(5))>.card .muted{font-size:9px!important;}
+}
+@media(max-width:360px){
+ body.bot-running .grid:has(>.card:nth-child(5))>.card{padding:6px 2px!important;gap:2px!important;}
+ body.bot-running .grid:has(>.card:nth-child(5))>.card .muted{font-size:8px!important;}
+}
+
+.site-header{flex-wrap:wrap}
+
+.year-picture .picture.year-gallery{display:flex!important;gap:3px;height:150px!important;min-height:150px;background:none;overflow-x:auto}
+.year-picture .year-gallery img{display:block;min-width:70px;flex:1 1 0;width:0;height:150px;object-fit:cover}
+
+.year-pictures .year-picture.year-multi{height:186px!important;min-height:186px!important;max-height:186px!important}
+
+/* Multi-photo years: keep the caption below the gallery on mobile. */
+@media(max-width:700px){
+ .year-pictures .year-picture.year-multi{display:flex!important;flex-direction:column;justify-content:flex-start}
+ .year-pictures .year-multi .picture.year-gallery{position:relative!important;top:auto!important;left:auto!important;flex:0 0 150px;max-height:150px!important;width:100%}
+ .year-pictures .year-multi .year-caption{position:relative!important;top:auto!important;bottom:auto!important;left:auto!important;flex:0 0 34px;width:100%;height:34px;min-height:34px;max-height:34px;margin:0}
+}
