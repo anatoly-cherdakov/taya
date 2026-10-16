@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Мои паркраны — Тая Чердакова</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{--green:#24743b;--line:#dde9dd}*{box-sizing:border-box}
+body{margin:0;background:#f6faf5;color:#243127;font:15px/1.5 Arial,sans-serif}
+main{max-width:1120px;margin:auto;padding:24px 18px 48px}
+h1{font-size:32px;margin:0 0 22px}h2{margin:30px 0 12px;font-size:23px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat,.panel{background:white;border:1px solid var(--line);border-radius:12px;padding:20px}
+.stat .num{display:block;font-size:32px;color:var(--green);font-weight:bold}
+.stat .label{color:#526055}.photos{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.photo{background:#e5eee5;border:1px solid var(--line);border-radius:10px;min-height:145px;display:flex;align-items:center;justify-content:center;color:#6a776d;text-align:center}
+.year{display:flex;align-items:center;justify-content:space-between}.year strong{font-size:24px}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line)}
+th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left}th{background:#eff5ee}
+.table-scroll{overflow-x:auto;border-radius:12px}#map{height:340px;border-radius:10px;margin-top:15px}
+footer{margin-top:24px;color:#66756a;font-size:13px}
+@media(max-width:620px){main{padding:16px 10px}.stats{gap:7px}.stat{padding:12px}.stat .num{font-size:25px}.photos{grid-template-columns:repeat(2,1fr)}th,td{white-space:nowrap;padding:9px}h1{font-size:27px}}
+</style></head><body><main>
+<h1>Мои паркраны</h1>
+<div class="stats"><div class="stat"><span class="num">🏁 2</span><span class="label">старта</span></div>
+<div class="stat"><span class="num">5</span><span class="label">км — дистанция старта</span></div>
+<div class="stat"><span class="num">2</span><span class="label">5 вёрст</span></div></div>
+<h2>Фотографии</h2>
+<div class="photos"><div class="photo">Фото пока не загружены</div><div class="photo">Фото пока не загружены</div></div>
+<div class="year"><h2>2026</h2><strong>2 старта</strong></div>
+<h2>Все старты</h2><div class="table-scroll"><table><thead><tr><th>№</th><th>Дата</th><th>Старт</th><th>Город</th><th>Система</th><th>Результат</th></tr></thead><tbody>
+<tr><td>1</td><td>03.10.2026</td><td>Строгино</td><td>Москва</td><td>5 вёрст</td><td>00:31:11</td></tr>
+<tr><td>2</td><td>10.10.2026</td><td>Строгино</td><td>Москва</td><td>5 вёрст</td><td>00:31:18</td></tr>
+</tbody></table></div>
+<h2>География пробежек</h2><div class="panel"><b>2 старта · 1 место</b><p>Москва — Строгино: 2 старта</p><div id="map"></div></div>
+<footer>Источник данных: <a href="https://izmyrun.pages.dev/s/taya/parkrun/">исходная страница</a></footer>
+</main><script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>if(window.L){let m=L.map('map').setView([55.803,37.405],12);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors'}).addTo(m);L.marker([55.803,37.405]).addTo(m).bindPopup('Строгино — 2 старта')}</script></body></html>
