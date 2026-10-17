@@ -17,6 +17,7 @@ try{
   const points=JSON.parse(document.getElementById('map-data').textContent);
   if(!window.L)throw new Error('Leaflet unavailable');
   const map=L.map('leaflet-map',{center:[55.5,45.5],zoom:4,minZoom:2,maxZoom:19,scrollWheelZoom:true});
+  window.tayaMap=map;
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:19}).addTo(map);
   const cluster=L.markerClusterGroup?L.markerClusterGroup({maxClusterRadius:34,disableClusteringAtZoom:12,showCoverageOnHover:false}):L.featureGroup();
   const markers=new Map();
@@ -25,6 +26,7 @@ try{
   let active=null;
   const buttons=[...document.querySelectorAll('.geo-location')];
   for(const p of points){
+    if(!Number.isFinite(p.lat)||!Number.isFinite(p.lon))continue;
     const popup=document.createElement('div');popup.className='race-popup';
     const title=document.createElement('b');title.textContent=p.name;
     const count=document.createElement('div');const n=p.count;
@@ -50,5 +52,6 @@ try{
     active.bindPopup(marker.getPopup().getContent().cloneNode(true),{autoPan:false}).openPopup();
     document.getElementById('race-map').scrollIntoView({behavior:'smooth',block:'center'});
   }));
-  if(points.length)map.fitBounds(cluster.getBounds(),{padding:[30,30],maxZoom:12,animate:false});
+  if(markers.size)map.fitBounds(cluster.getBounds(),{padding:[30,30],maxZoom:12,animate:false});
 }catch{document.getElementById('map-error').textContent='Не удалось загрузить карту. Таблица результатов доступна.';}
+
